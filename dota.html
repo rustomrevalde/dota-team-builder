@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dota App</title>
+    <link rel="stylesheet" type="text/css" href="dota.css">
+</head>
+
+<body>
+    <div class="mainDota">
+        <div class="dotaPlayers">
+            <div>
+                <h2>PLAYERS</h2>
+                <ul id="players"></ul>
+            </div>
+            <div>
+                <form class="log-in">
+                    <h3>Add new player</h3>
+                    <div class="name">
+                        <label>Name</label>
+                        <input type="text" id="name">
+                    </div>
+                    <div class="role">
+                        <label>Role</label>
+                        <input type="text" id="role">
+                    </div>
+                    <div class="winrate">
+                        <label>Winrate</label>
+                        <input type="number" id="winrate">
+                    </div>
+                    <div class="save-button">
+                        <button type="button" onclick="add()">Save</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="team-builder-wizard">
+            <div class="build">
+                <h2>Team Builder Wizzard</h2>
+                <label>Winrate</label>
+                <input type="text" id="total-winrate" readonly disabled>
+            </div>
+            <div class="build">
+                <h4>Roster</h4>
+                <ul id="selectedPlayer"></ul>
+            </div>
+        </div>
+    </div>
+    <script src="dota.js"></script>
+    <script>
+        const mainDota = new DotaTeamBuilder();
+        mainDota.renderUI();
+
+        function add() {
+            const name = document.getElementById('name').value;
+            const role = document.getElementById('role').value;
+            const winrate = document.getElementById('winrate').value
+
+            if (name.length === 0 || role.length === 0 || winrate.length === 0) {
+                return;
+            }
+
+            mainDota.addPlayer(name, role, winrate);
+        }
+
+        function addTeamMember(id) {
+            mainDota.addTeamMember(id);
+        }
+
+        function playerRemoved(id) {
+            mainDota.removedPlayer(id);
+        }
+    </script>
+</body>
+
+</html>
